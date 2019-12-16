@@ -13,7 +13,16 @@ RSpec.describe Keycloak do
     end
 
     describe '.installation_file' do
-      it 'should return default installation file' do
+
+      before do
+        Keycloak.class_variable_set :@@installation_file, nil
+      end
+
+      it 'should return the old default installation file' do
+        expect(Keycloak.installation_file).to eq(Keycloak::OLD_KEYCLOAK_JSON_FILE)
+      end
+
+      it 'should return the new default installation file' do
         allow(File).to receive(:exist?).with(Keycloak::KEYCLOAK_JSON_FILE).and_return(Keycloak::KEYCLOAK_JSON_FILE)
         expect(Keycloak.installation_file).to eq(Keycloak::KEYCLOAK_JSON_FILE)
       end

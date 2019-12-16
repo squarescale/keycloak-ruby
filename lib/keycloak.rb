@@ -25,7 +25,7 @@ module Keycloak
   end
 
   def self.installation_file
-    @installation_file ||= if File.exist?(KEYCLOAK_JSON_FILE)
+    @@installation_file ||= if File.exist?(KEYCLOAK_JSON_FILE)
                              KEYCLOAK_JSON_FILE
                            else
                              OLD_KEYCLOAK_JSON_FILE
@@ -34,7 +34,7 @@ module Keycloak
 
   def self.installation_file=(file = nil)
     raise InstallationFileNotFound unless file.instance_of?(String) && File.exist?(file)
-    @installation_file = file || KEYCLOAK_JSON_FILE
+    @@installation_file = file || KEYCLOAK_JSON_FILE
   end
 
   module Client
