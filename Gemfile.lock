@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    keycloak-ruby (1.0.0)
+    keycloak-ruby (1.0.0.pre)
       json
       jwt
       rest-client

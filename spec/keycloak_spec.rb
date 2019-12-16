@@ -33,4 +33,8 @@ RSpec.describe Keycloak do
       end
     end
   end
+
+  describe 'client module' do
+
+  end
 end

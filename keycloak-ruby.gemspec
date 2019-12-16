@@ -4,10 +4,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "keycloak/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "keycloak-ruby"
+  spec.name          = "sqsc-keycloak-ruby"
   spec.version       = Keycloak::VERSION
   spec.authors       = ["Guilherme Portugues", "Jérôme Doucet"]
-  spec.email         = ["engineering@squarescale.com"]
+  spec.email         = ["engineering@squarescale.com", "jerdct@gmail.com"]
 
   spec.summary       = %q{Add authentication to applications and secure services with Keycloak}
   spec.description   = %q{Fork of https://github.com/imagov/keycloak for Squarescale needs}
