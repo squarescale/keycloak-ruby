@@ -11,9 +11,10 @@ RSpec.describe Keycloak do
         expect{ Keycloak.installation_file = 'random/file.json' }.to raise_error(Keycloak::InstallationFileNotFound)
       end
     end
-    
+
     describe '.installation_file' do
       it 'should return default installation file' do
+        allow(File).to receive(:exist?).with(Keycloak::KEYCLOAK_JSON_FILE).and_return(Keycloak::KEYCLOAK_JSON_FILE)
         expect(Keycloak.installation_file).to eq(Keycloak::KEYCLOAK_JSON_FILE)
       end
 
