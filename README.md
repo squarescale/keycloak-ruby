@@ -2,6 +2,8 @@
 
 * [pt-BR translation](https://github.com/imagov/keycloak/blob/master/README.pt-BR.md)
 
+This is a fork from [keycloak](https://github.com/imagov/keycloak) in order to add support for some needed features.
+
 Keycloak gem was developed to integrate applications and services into [Red Hat](https://www.redhat.com)'s [Keycloak](http://www.keycloak.org/) system for user control, authentication, authorization, and session management.
 
 Its development was based on version 3.2 of Keycloak, whose documentation can be found [here](http://www.keycloak.org/archive/documentation-3.2.html).
