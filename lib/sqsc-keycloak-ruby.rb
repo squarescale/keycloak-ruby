@@ -184,7 +184,7 @@ module Keycloak
     def self.logout(redirect_uri = '', refresh_token = '', client_id = '', secret = '', end_session_endpoint = '')
       verify_setup
 
-      if self.token || !refresh_token.empty?
+      if !refresh_token.empty? || self.token
 
         refresh_token = self.token['refresh_token'] if refresh_token.empty?
         client_id = @client_id if isempty?(client_id)
