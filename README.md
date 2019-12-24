@@ -137,21 +137,21 @@ The `Keycloak::Client` module has the methods that represent the <b>endpoint</b>
 We will detail each of these methods:
 
 ```ruby
-Keycloak::Client.get_token(user, password, client_id = '', secret = '')
+Keycloak::Client.get_token(user, password, client_id = '', secret = '', scope = nil)
 ```
 
 If you choose to authenticate users using the screen of your own application, then use this method. Simply invoke it in the method of login in the `controller` defined with the session controller of your application, passing as parameter the <b>user</b> and the <b>password</b> informed by the user. If the authentication is valid, then a JSON containing the `access_token` and the `refresh_token` is returned.
 
 
 ```ruby
-Keycloak::Client.url_login_redirect(redirect_uri, response_type = 'code')
+Keycloak::Client.url_login_redirect(redirect_uri, response_type = 'code', client_id = '', authorization_endpoint = '', scope = nil)
 ```
 
 To authenticate the users of your application using a template configured in Keycloak, redirect the request to the url returned in this method. Pass as a parameter the url that the user will have access in case of successful authentication (`redirect_uri`) and also the type of response (`response_type`), which if not informed, gem will assume the `code` value. If the authentication is successful, then a `code` will be returned that will enable you to request a token from <b>Keycloak</b>.
 
 
 ```ruby
-Keycloak::Client.get_token_by_code(code, redirect_uri, client_id = '', secret = '')
+Keycloak::Client.get_token_by_code(code, redirect_uri, client_id = '', secret = '', scope = nil)
 ```
 
 When using the `Keycloak::Client.url_login_redirect` method to get a `code`, pass it as a parameter in this method so that Keycloak returns a token, thus logging the user in the application. The second parameter (`redirect_uri`) must be passed so that when a token is made available, Keycloak redirects to the url informed.
