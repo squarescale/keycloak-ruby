@@ -43,22 +43,24 @@ module Keycloak
       attr_reader :client_id, :secret, :configuration, :public_key
     end
 
-    def self.get_token(user, password, client_id = '', secret = '')
+    def self.get_token(user, password, client_id = '', secret = '', scope = nil)
       setup_module
 
       client_id = @client_id if isempty?(client_id)
       secret = @secret if isempty?(secret)
 
-      payload = { 'client_id' => client_id,
-                  'client_secret' => secret,
-                  'username' => user,
-                  'password' => password,
-                  'grant_type' => 'password' }
+      payload = { "client_id" => client_id,
+                  "client_secret" => secret,
+                  "username" => user,
+                  "password" => password,
+                  "grant_type" => "password" }
+
+      payload = fill_scope(payload, scope)
 
       mount_request_token(payload)
     end
 
-    def self.get_token_by_code(code, redirect_uri, client_id = '', secret = '')
+    def self.get_token_by_code(code, redirect_uri, client_id = '', secret = '', scope = nil)
       verify_setup
 
       client_id = @client_id if isempty?(client_id)
@@ -69,6 +71,8 @@ module Keycloak
                   'code' => code,
                   'grant_type' => 'authorization_code',
                   'redirect_uri' => redirect_uri }
+
+      payload = fill_scope(payload, scope)
 
       mount_request_token(payload)
     end
@@ -171,13 +175,20 @@ module Keycloak
       exec_request _request
     end
 
-    def self.url_login_redirect(redirect_uri, response_type = 'code', client_id = '', authorization_endpoint = '')
+    def self.url_login_redirect(redirect_uri, response_type = 'code', client_id = '', authorization_endpoint = '', scope = nil)
       verify_setup
 
       client_id = @client_id if isempty?(client_id)
       authorization_endpoint = @configuration['authorization_endpoint'] if isempty?(authorization_endpoint)
 
-      p = URI.encode_www_form(response_type: response_type, client_id: client_id, redirect_uri: redirect_uri)
+      payload = {
+        "response_type" => response_type,
+        "client_id" => client_id,
+        "redirect_uri" => redirect_uri
+      }
+      payload = fill_scope(payload, scope)
+
+      p = URI.encode_www_form(payload)
       "#{authorization_endpoint}?#{p}"
     end
 
@@ -350,6 +361,11 @@ module Keycloak
         Keycloak.keycloak_controller ||= KEYCLOACK_CONTROLLER_DEFAULT
         Keycloak.validate_token_when_call_has_role ||= false
         get_installation
+      end
+
+      def self.fill_scope(payload, scope)
+        payload["scope"] = scope.join(" ") unless scope.nil? or scope.empty?
+        payload
       end
 
       def self.exec_request(proc_request)

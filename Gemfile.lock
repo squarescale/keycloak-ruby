@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    keycloak-ruby (1.0.0.pre)
+    sqsc-keycloak-ruby (1.0.0.pre.1)
       json
       jwt
       rest-client
@@ -49,9 +49,9 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.17)
-  keycloak-ruby!
   rake (~> 13.0)
   rspec (~> 3.9)
+  sqsc-keycloak-ruby!
 
 BUNDLED WITH
    1.17.3
