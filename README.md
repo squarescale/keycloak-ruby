@@ -380,6 +380,12 @@ Keycloak::Admin.get_client_level_role_for_user_and_app(id, client, access_token 
 
 `get_client_level_role_for_user_and_app` return a list of [RoleRepresentation](http://www.keycloak.org/docs-api/3.2/rest-api/index.html#_rolerepresentation) of client <b>Client-Roles</b>, represented by `client` parameter linked to the user represented by the `id` parameter.
 
+```ruby
+# GET /admin/realms/{realm}/clients/{client_id}/offline-sessions
+Keycloak::Admin.list_offline_session(client_id, access_token)
+```
+
+`list_offline_session` return the list of [offline sessions](https://github.com/keycloak/keycloak-documentation/blob/master/server_admin/topics/sessions/offline.adoc) for a given client.
 
 ```ruby
 Keycloak::Admin.update_effective_user_roles(id, client_id, roles_names, access_token = nil)
