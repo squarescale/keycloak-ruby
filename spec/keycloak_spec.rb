@@ -20,7 +20,7 @@ RSpec.describe Keycloak do
     expect(Keycloak::VERSION).not_to be nil
   end
 
-  describe 'Module configuration' do
+  describe 'Configuration module' do
     describe '.installation_file=' do
       it 'should raise an error if given file does not exist' do
         expect{ Keycloak.installation_file = 'random/file.json' }.to raise_error(Keycloak::InstallationFileNotFound)
@@ -45,7 +45,7 @@ RSpec.describe Keycloak do
     end
   end
 
-  describe 'client module' do
+  describe 'Client module' do
 
     let(:client_id) { "djhpyigvsbefpuydgcosjdhvv" }
     let(:client_secret) { "wxcqsdgqrgbhzrgdfsghgf" }
@@ -139,5 +139,22 @@ RSpec.describe Keycloak do
       end
 
     end
+  end
+
+  describe 'Admin module' do
+
+    describe 'list_offline_session' do
+      let(:response) { "some_response" }
+      let(:client_id) { "web" }
+      let(:access_token) { "some_access_token" }
+
+      it 'should perform the correct request' do
+        allow(Keycloak::Admin).to receive(:generic_get).with("clients/#{client_id}/offline-sessions", nil, access_token).and_return(response)
+
+        Keycloak::Admin.list_offline_session(client_id, access_token)
+      end
+
+    end
+
   end
 end

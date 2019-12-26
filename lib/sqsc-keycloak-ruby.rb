@@ -492,6 +492,10 @@ module Keycloak
       generic_get("users/#{id}/role-mappings/clients/#{client}", nil, access_token)
     end
 
+    def self.list_offline_session(client_id, access_token)
+      generic_get("clients/#{client_id}/offline-sessions", nil, access_token)
+    end
+
     def self.update_effective_user_roles(id, client_id, roles_names, access_token = nil)
       client = JSON get_clients({ clientId: client_id }, access_token)
 
