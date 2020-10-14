@@ -156,5 +156,19 @@ RSpec.describe Keycloak do
 
     end
 
+    describe 'delete_user' do
+
+      let(:response) { "some_response" }
+      let(:user_id) { "0a8ddaaf-21c0-471d-b568-4f1bd9dda558" }
+      let(:access_token) { "some_access_token" }
+
+      it 'should perform the correct request' do
+        allow(Keycloak::Admin).to receive(:generic_delete).with("users/#{user_id}", nil, nil, access_token).and_return(response)
+
+        Keycloak::Admin.delete_user(user_id, access_token)
+      end
+
+    end
+
   end
 end
