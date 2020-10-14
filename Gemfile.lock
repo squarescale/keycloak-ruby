@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sqsc-keycloak-ruby (1.0.0)
+    sqsc-keycloak-ruby (1.0.1)
       json
       jwt
       rest-client
@@ -15,11 +15,11 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    json (2.3.0)
-    jwt (2.2.1)
-    mime-types (3.3)
+    json (2.3.1)
+    jwt (2.2.2)
+    mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2019.1009)
+    mime-types-data (3.2020.0512)
     netrc (0.11.0)
     rake (13.0.1)
     rest-client (2.1.0)
@@ -42,7 +42,7 @@ GEM
     rspec-support (3.9.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
+    unf_ext (0.0.7.7)
 
 PLATFORMS
   ruby
