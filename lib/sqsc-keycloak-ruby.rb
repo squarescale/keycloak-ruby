@@ -86,6 +86,11 @@ module Keycloak
 
       payload = { 'client_id' => client_id, 'client_secret' => secret, 'audience' => client_id, 'grant_type' => 'urn:ietf:params:oauth:grant-type:token-exchange', 'subject_token_type' => 'urn:ietf:params:oauth:token-type:access_token', 'subject_issuer' => issuer, 'subject_token' => issuer_token }
       header = { 'Content-Type' => 'application/x-www-form-urlencoded' }
+
+      if !@custom_host_header.nil?
+        header['Host'] = @custom_host_header
+      end
+
       _request = -> do
         RestClient.post(token_endpoint, payload, header){|response, request, result|
         # case response.code
@@ -161,6 +166,10 @@ module Keycloak
       header = { 'Content-Type' => 'application/x-www-form-urlencoded',
                  'authorization' => authorization }
 
+      if !@custom_host_header.nil?
+        header['Host'] = @custom_host_header
+      end
+
       _request = -> do
         RestClient.post(token_introspection_endpoint, payload, header){|response, request, result|
           case response.code
@@ -208,6 +217,10 @@ module Keycloak
 
         header = { 'Content-Type' => 'application/x-www-form-urlencoded' }
 
+        if !@custom_host_header.nil?
+          header['Host'] = @custom_host_header
+        end
+
         final_url = if redirect_uri.empty?
                       end_session_endpoint
                     else
@@ -240,6 +253,10 @@ module Keycloak
       payload = { 'access_token' => access_token }
 
       header = { 'Content-Type' => 'application/x-www-form-urlencoded' }
+
+      if !@custom_host_header.nil?
+        header['Host'] = @custom_host_header
+      end
 
       _request = -> do
         RestClient.post(userinfo_endpoint, payload, header){ |response, request, result|
@@ -343,6 +360,7 @@ module Keycloak
           @secret = installation["credentials"]["secret"]
           @public_key = installation["realm-public-key"]
           @auth_server_url = installation["auth-server-url"]
+          @custom_host_header = installation["custom_host_header"]
         else
           raise "#{Keycloak.installation_file} and relm settings not found." if isempty?(Keycloak.realm) || isempty?(Keycloak.auth_server_url)
 
@@ -396,6 +414,10 @@ module Keycloak
 
       def self.mount_request_token(payload)
         header = {'Content-Type' => 'application/x-www-form-urlencoded'}
+
+        if !@custom_host_header.nil?
+          header['Host'] = @custom_host_header
+        end
 
         _request = -> do
           RestClient.post(@configuration['token_endpoint'], payload, header){|response, request, result|
