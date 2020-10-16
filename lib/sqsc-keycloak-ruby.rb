@@ -16,7 +16,7 @@ module Keycloak
   class << self
     attr_accessor :proxy, :generate_request_exception, :keycloak_controller,
                   :proc_cookie_token, :proc_external_attributes,
-                  :realm, :auth_server_url, :validate_token_when_call_has_role
+                  :realm, :auth_server_url, :validate_token_when_call_has_role, :custom_host_header
   end
 
   def self.explode_exception
